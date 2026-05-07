@@ -29,30 +29,23 @@ export default function MusicPlayer() {
   const hide = pathname === "/about" || pathname?.startsWith("/search");
 
   const doSearch = useCallback(async (q) => {
+    const query = (q || "").trim();
+    if (!query) {
+      setAudioError("Masukkan judul lagu dulu.");
+      return;
+    }
+
     setSearching(true);
     setAudioError(null);
     try {
-      const res = await fetch(`https://api-faa.my.id/faa/ytplay?query=${encodeURIComponent(q)}`);
+      const res = await fetch(`/api/music?q=${encodeURIComponent(query)}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const raw = data?.result;
       if (!data?.status || !raw?.mp3) throw new Error("Lagu tidak ditemukan");
 
-      const track = {
-        title: raw.title || "Unknown Track",
-        author: raw.author || "Unknown Artist",
-        thumbnail: raw.thumbnail || "/favicon.png",
-        duration: Number(raw.duration) || 0,
-        duration_timestamp: raw.duration_timestamp || "",
-        views: Number(raw.views) || 0,
-        published: raw.published || "",
-        url: raw.url || "",
-        mp3: raw.mp3,
-        streamUrl: raw.mp3,
-        previewUrl: raw.mp3,
-      };
-
-      setTracks([track]);
+      setTracks([raw]);
+      const track = raw;
       setCurrentTrack(track);
       setIsPlaying(false);
     } catch (e) {
@@ -65,9 +58,6 @@ export default function MusicPlayer() {
     }
   }, []);
 
-  useEffect(() => {
-    doSearch("Inni uhibbuka");
-  }, [doSearch]);
 
   // Audio event listeners
   useEffect(() => {
@@ -287,7 +277,7 @@ export default function MusicPlayer() {
                     <p className="text-sm text-gray-500">{audioError || "Tidak ada lagu"}</p>
                     {audioError && (
                       <button
-                        onClick={() => doSearch("Inni uhibbuka")}
+                        onClick={() => doSearch(searchInput.trim())}
                         className="mt-3 text-xs px-4 py-2 rounded-xl text-white font-semibold"
                         style={{ background: "linear-gradient(135deg,#f59e0b,#ef4444)" }}
                       >
@@ -304,7 +294,12 @@ export default function MusicPlayer() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  doSearch(searchInput.trim() || "Inni uhibbuka");
+                  const query = searchInput.trim();
+                  if (!query) {
+                    setAudioError("Masukkan judul lagu dulu.");
+                    return;
+                  }
+                  doSearch(query);
                 }}
                 className="flex gap-2 mt-3"
               >
