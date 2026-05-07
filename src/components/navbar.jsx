@@ -92,7 +92,7 @@ export default function Navbar() {
       >
         <div className="max-w-5xl mx-auto flex items-center gap-3 px-4 py-2.5" style={{ height: "56px" }}>
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-1 flex-shrink-0 mr-2">
+          <Link href="/" className="flex items-center flex-shrink-0 mr-2" style={{ gap: "2px" }}>
             <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "#000", padding: "2px" }}>
               <img src="/icon.png" alt="MangaRift" className="w-full h-full object-contain rounded-md" />
             </div>
@@ -109,10 +109,10 @@ export default function Navbar() {
           {/* Desktop nav links */}
           <nav className="hidden md:flex items-center gap-1 mr-2">
             {[
-              { href: "/", label: "Home" },
+              { href: "/", label: "Beranda" },
               { href: "/search", label: "Jelajah" },
-              { href: "/library", label: "Library" },
-              { href: "/about", label: "About" },
+              { href: "/library", label: "Perpustakaan" },
+              { href: "/about", label: "Tentang" },
             ].map(({ href, label }) => (
               <Link key={href} href={href} className="text-sm text-gray-400 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all">
                 {label}

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 const navItems = [
   {
     href: "/",
-    label: "Home",
+    label: "Beranda",
     icon: (active) => (
       <svg width="20" height="20" viewBox="0 0 24 24" fill={active ? "#f59e0b" : "none"} stroke={active ? "#f59e0b" : "#4b5563"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
@@ -25,7 +25,7 @@ const navItems = [
   },
   {
     href: "/library",
-    label: "Library",
+    label: "Perpustakaan",
     icon: (active) => (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#f59e0b" : "#4b5563"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>
@@ -34,7 +34,7 @@ const navItems = [
   },
   {
     href: "/about",
-    label: "About",
+    label: "Tentang",
     icon: (active) => (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#f59e0b" : "#4b5563"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="8" r="4"/>

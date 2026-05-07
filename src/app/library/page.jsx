@@ -55,7 +55,7 @@ export default function LibraryPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h1 className="text-lg font-bold text-white">Library</h1>
+          <h1 className="text-lg font-bold text-white">Perpustakaan</h1>
           <p className="text-xs mt-0.5" style={{ color: "#6b7280" }}>Riwayat &amp; Koleksi Bacaan</p>
         </div>
         {history.length > 0 && (
@@ -99,7 +99,7 @@ export default function LibraryPage() {
             </svg>
           </div>
           <div className="text-center">
-            <p className="text-white font-semibold mb-1">Library Kosong</p>
+            <p className="text-white font-semibold mb-1">Perpustakaan Kosong</p>
             <p className="text-sm" style={{ color: "#6b7280" }}>Mulai baca manga untuk melihat riwayat di sini</p>
           </div>
           <Link

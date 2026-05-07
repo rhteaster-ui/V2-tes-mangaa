@@ -95,7 +95,7 @@ export default function HeroSlider({ heroes = [] }) {
             className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full mb-2"
             style={{ background: "rgba(245,158,11,0.85)", color: "white" }}
           >
-            Top Rated #{current + 1}
+            Rating Tertinggi #{current + 1}
           </span>
           <h1 className="text-xl font-bold text-white mb-1.5 line-clamp-2 leading-tight">
             {heroTitle}

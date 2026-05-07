@@ -45,10 +45,13 @@ export async function GET(request) {
     const upstream = await fetch(audioUrl, {
       headers: {
         Accept: "audio/*,*/*;q=0.8",
-        "User-Agent": "MangaRift/1.0 (+https://mangarift.app)",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/125 Mobile Safari/537.36",
+        Referer: "https://youtube.com/",
         ...(range ? { Range: range } : {}),
       },
       cache: "no-store",
+      redirect: "follow",
+      signal: AbortSignal.timeout(30000),
     });
 
     if (!upstream.ok && upstream.status !== 206) {
