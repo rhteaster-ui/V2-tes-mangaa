@@ -56,26 +56,31 @@ function normalizeTrack(raw) {
   };
 }
 
-async function fetchFaaMusic(query) {
+async function fetchFaaMusic(query, attempt = 1) {
   const url = new URL(FAA_YTPLAY_URL);
   url.searchParams.set("query", query);
 
-  const res = await fetch(url.toString(), {
-    headers: {
-      Accept: "application/json, text/plain, */*",
-      "User-Agent": "MangaRift/1.0 (+https://mangarift.app)",
-    },
-    cache: "no-store",
-    signal: AbortSignal.timeout(15000),
-  });
-
-  const text = await res.text();
-  if (!res.ok) throw new Error(`Faa API responded ${res.status}: ${text.slice(0, 120)}`);
-
   try {
-    return JSON.parse(text);
-  } catch {
-    throw new Error("Faa API returned non-JSON response");
+    const res = await fetch(url.toString(), {
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "User-Agent": "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 Chrome/125 Mobile Safari/537.36",
+      },
+      cache: "no-store",
+      signal: AbortSignal.timeout(20000),
+    });
+
+    const text = await res.text();
+    if (!res.ok) throw new Error(`Faa API responded ${res.status}: ${text.slice(0, 120)}`);
+
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new Error("Faa API returned non-JSON response");
+    }
+  } catch (err) {
+    if (attempt < 2) return fetchFaaMusic(query, attempt + 1);
+    throw err;
   }
 }
 

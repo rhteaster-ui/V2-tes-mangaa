@@ -89,7 +89,7 @@ export default function MusicPlayer() {
     };
   }, [currentTrack]);
 
-  // Load track when currentTrack changes
+  // Load track when currentTrack changes — prefer proxied stream, fallback to direct mp3
   useEffect(() => {
     const audioUrl = currentTrack?.streamUrl || currentTrack?.previewUrl || currentTrack?.mp3;
     if (!audioUrl || !audioRef.current) return;

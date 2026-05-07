@@ -11,7 +11,7 @@ export default function NotFound() {
         className="text-sm font-semibold px-5 py-2.5 rounded-xl text-white"
         style={{ background: "linear-gradient(135deg,#f59e0b,#ef4444)" }}
       >
-        ← Kembali ke Home
+        ← Kembali ke Beranda
       </Link>
     </div>
   );

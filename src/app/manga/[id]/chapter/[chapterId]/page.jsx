@@ -246,7 +246,7 @@ export default function ChapterReader() {
             className="flex items-center gap-1 text-xs font-semibold px-4 py-2.5 rounded-xl text-white disabled:opacity-30"
             style={{ background: "rgba(255,255,255,0.1)" }}
           >
-            <ChevronLeft size={16} /> Prev
+            <ChevronLeft size={16} /> Sblm
           </button>
           <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.15)" }}>
             <div
@@ -263,7 +263,7 @@ export default function ChapterReader() {
             className="flex items-center gap-1 text-xs font-semibold px-4 py-2.5 rounded-xl text-white disabled:opacity-30"
             style={{ background: "rgba(255,255,255,0.1)" }}
           >
-            Next <ChevronRight size={16} />
+            Slnjt <ChevronRight size={16} />
           </button>
         </div>
       </div>
@@ -450,7 +450,7 @@ export default function ChapterReader() {
                     <Link href={`/manga/${mangaId}/chapter/${prevChapter.id}`}
                       className="text-sm font-semibold px-5 py-2.5 rounded-xl text-white"
                       style={{ background: "rgba(255,255,255,0.1)" }}>
-                      ← Prev
+                      ← Sblm
                     </Link>
                   )}
                   <Link href={`/manga/${mangaId}`}
@@ -462,7 +462,7 @@ export default function ChapterReader() {
                     <Link href={`/manga/${mangaId}/chapter/${nextChapter.id}`}
                       className="text-sm font-semibold px-5 py-2.5 rounded-xl text-white"
                       style={{ background: "linear-gradient(135deg,#f59e0b,#ef4444)" }}>
-                      Next →
+                      Slnjt →
                     </Link>
                   )}
                 </div>

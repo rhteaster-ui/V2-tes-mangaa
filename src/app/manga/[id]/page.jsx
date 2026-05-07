@@ -28,10 +28,10 @@ function getAuthors(manga) {
 }
 
 const STATUS = {
-  ongoing:   { label: "Ongoing",   color: "#22c55e" },
-  completed: { label: "Completed", color: "#f59e0b" },
-  hiatus:    { label: "Hiatus",    color: "#f59e0b" },
-  cancelled: { label: "Cancelled", color: "#ef4444" },
+  ongoing:   { label: "Berlangsung", color: "#22c55e" },
+  completed: { label: "Tamat",       color: "#f59e0b" },
+  hiatus:    { label: "Hiatus",      color: "#f59e0b" },
+  cancelled: { label: "Dibatalkan",  color: "#ef4444" },
 };
 
 async function getData(id) {
@@ -73,7 +73,7 @@ export default async function MangaDetailPage({ params }) {
         <p className="text-5xl">😢</p>
         <p className="text-gray-400">Manga tidak ditemukan</p>
         <Link href="/" className="text-sm px-4 py-2 rounded-xl text-white" style={{ background: "#f59e0b" }}>
-          ← Kembali ke Home
+          ← Kembali ke Beranda
         </Link>
       </div>
     );
@@ -109,7 +109,7 @@ export default async function MangaDetailPage({ params }) {
           className="absolute top-4 left-4 flex items-center gap-2 text-sm text-white px-3 py-1.5 rounded-xl"
           style={{ background: "rgba(0,0,0,0.5)" }}
         >
-          ← Home
+          ← Beranda
         </Link>
       </div>
 
