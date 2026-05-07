@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 const FAA_YTPLAY_URL = "https://api-faa.my.id/faa/ytplay";
-const DEFAULT_QUERY = "Inni uhibbuka";
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
@@ -90,7 +89,16 @@ export function OPTIONS() {
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  const q = (searchParams.get("q") || DEFAULT_QUERY).trim() || DEFAULT_QUERY;
+  const q = (searchParams.get("q") || "").trim();
+  if (!q) {
+    return corsJson({
+      status: false,
+      error: "Query wajib diisi",
+      query: q,
+      results: [],
+      resultCount: 0,
+    }, { status: 400 });
+  }
 
   try {
     const data = await fetchFaaMusic(q);
