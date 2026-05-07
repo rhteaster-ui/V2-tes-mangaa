@@ -283,12 +283,12 @@ export default function AboutPage() {
         {/* === DEVELOPER CARD === */}
         <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(245,158,11,0.1)" }}>
           <div className="p-4 flex items-center gap-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-            <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 font-black text-lg"
-              style={{ background: "linear-gradient(135deg,#f59e0b,#ef4444)", color: "#080a0f", border: "1px solid rgba(245,158,11,0.3)" }}
-            >
-              R
-            </div>
+            <img
+              src="https://e.top4top.io/p_37695nh3v0.png"
+              alt="R_hmt ofc"
+              className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
+              style={{ border: "1px solid rgba(245,158,11,0.35)" }}
+            />
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <p className="text-sm font-bold text-white">R_hmt ofc</p>

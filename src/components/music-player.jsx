@@ -32,17 +32,33 @@ export default function MusicPlayer() {
     setSearching(true);
     setAudioError(null);
     try {
-      const res = await fetch(`/api/music?q=${encodeURIComponent(q)}`);
+      const res = await fetch(`https://api-faa.my.id/faa/ytplay?query=${encodeURIComponent(q)}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      const list = data.results || (data.result ? [data.result] : []);
-      setTracks(list);
-      if (list[0]) {
-        setCurrentTrack(list[0]);
-        setIsPlaying(false);
-      }
+      const raw = data?.result;
+      if (!data?.status || !raw?.mp3) throw new Error("Lagu tidak ditemukan");
+
+      const track = {
+        title: raw.title || "Unknown Track",
+        author: raw.author || "Unknown Artist",
+        thumbnail: raw.thumbnail || "/favicon.png",
+        duration: Number(raw.duration) || 0,
+        duration_timestamp: raw.duration_timestamp || "",
+        views: Number(raw.views) || 0,
+        published: raw.published || "",
+        url: raw.url || "",
+        mp3: raw.mp3,
+        streamUrl: raw.mp3,
+        previewUrl: raw.mp3,
+      };
+
+      setTracks([track]);
+      setCurrentTrack(track);
+      setIsPlaying(false);
     } catch (e) {
       console.error("music search err", e);
+      setTracks([]);
+      setCurrentTrack(null);
       setAudioError("Gagal memuat lagu. Coba lagi.");
     } finally {
       setSearching(false);
