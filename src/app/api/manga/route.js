@@ -14,7 +14,7 @@ export async function GET(request) {
     params.append("limit", limit);
     params.append("offset", offset);
     params.append("includes[]", "cover_art");
-    params.append("availableTranslatedLanguage[]", "en");
+    params.append("availableTranslatedLanguage[]", "id");
     params.append("contentRating[]", "safe");
     params.append("contentRating[]", "suggestive");
 
