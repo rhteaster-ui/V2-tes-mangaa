@@ -39,9 +39,9 @@ async function getData(id) {
     fetch(`${MDEX}/manga/${id}?includes[]=cover_art&includes[]=author&includes[]=artist`, {
       headers: HEADERS, next: { revalidate: 600 },
     }),
+    // Perubahan 1: Tarik chapter bahasa Indonesia (id) DAN Inggris (en) sekaligus
     fetch(
-      // Ubah di baris ini: translatedLanguage[]=en menjadi translatedLanguage[]=id
-      `${MDEX}/manga/${id}/feed?limit=500&translatedLanguage[]=id&order[chapter]=asc&includes[]=scanlation_group`,
+      `${MDEX}/manga/${id}/feed?limit=500&translatedLanguage[]=id&translatedLanguage[]=en&order[chapter]=asc&includes[]=scanlation_group`,
       { headers: HEADERS, next: { revalidate: 300 } }
     ),
   ]);
@@ -83,7 +83,7 @@ export default async function MangaDetailPage({ params }) {
   const title   = getTitle(manga);
   const cover   = getCover(manga);
   
-  // Ubah di baris ini: Nyoba cari sinopsis ID dulu, kalau nggak ada baru EN
+  // Tetap cari sinopsis ID dulu, baru EN
   const desc    = manga.attributes?.description?.id || manga.attributes?.description?.en || Object.values(manga.attributes?.description || {})[0] || "";
   
   const status  = manga.attributes?.status;
@@ -97,7 +97,15 @@ export default async function MangaDetailPage({ params }) {
   const typeLabel = lang === "ko" ? "Manhwa 🇰🇷" : lang === "zh" || lang === "zh-hk" ? "Manhua 🇨🇳" : "Manga 🇯🇵";
   const year   = manga.attributes?.year;
   const rating = manga.attributes?.rating?.bayesian?.toFixed(1);
-  const chapters = chaptersData?.data || [];
+  
+  // Perubahan 2: Filter dan prioritaskan chapter Indonesia
+  const allChapters = chaptersData?.data || [];
+  const idChapters = allChapters.filter((ch) => ch.attributes?.translatedLanguage === "id");
+  const enChapters = allChapters.filter((ch) => ch.attributes?.translatedLanguage === "en");
+  
+  // Kalau ada chapter ID pakai ID, kalau kosong baru pakai EN
+  const chapters = idChapters.length > 0 ? idChapters : enChapters;
+  const activeLangLabel = idChapters.length > 0 ? "Bahasa Indonesia" : "Bahasa Inggris";
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -183,15 +191,20 @@ export default async function MangaDetailPage({ params }) {
         {/* Chapter List */}
         <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
           <div className="flex items-center justify-between px-4 py-3" style={{ background: "rgba(255,255,255,0.04)" }}>
-            <h3 className="text-sm font-semibold text-white">📑 Daftar Chapter</h3>
+            <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+              📑 Daftar Chapter 
+              {/* Tambahan kecil buat ngasih tau user bahasa apa yang lagi ditampilin */}
+              <span className="text-[10px] px-2 py-0.5 rounded-md" style={{ background: "rgba(99,102,241,0.2)", color: "#818cf8" }}>
+                {activeLangLabel}
+              </span>
+            </h3>
             <span className="text-xs" style={{ color: "#6b7280" }}>{chapters.length} chapter</span>
           </div>
 
           <div style={{ maxHeight: "450px", overflowY: "auto" }}>
             {chapters.length === 0 ? (
               <div className="text-center py-8 text-sm" style={{ color: "#6b7280" }}>
-                {/* Teks diubah jadi Bahasa Indonesia */}
-                Belum ada chapter tersedia (Bahasa Indonesia)
+                Belum ada chapter tersedia.
               </div>
             ) : (
               [...chapters].reverse().map((ch) => {
