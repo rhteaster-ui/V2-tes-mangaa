@@ -40,7 +40,8 @@ async function getData(id) {
       headers: HEADERS, next: { revalidate: 600 },
     }),
     fetch(
-      `${MDEX}/manga/${id}/feed?limit=500&translatedLanguage[]=en&order[chapter]=asc&includes[]=scanlation_group`,
+      // Ubah di baris ini: translatedLanguage[]=en menjadi translatedLanguage[]=id
+      `${MDEX}/manga/${id}/feed?limit=500&translatedLanguage[]=id&order[chapter]=asc&includes[]=scanlation_group`,
       { headers: HEADERS, next: { revalidate: 300 } }
     ),
   ]);
@@ -81,7 +82,10 @@ export default async function MangaDetailPage({ params }) {
 
   const title   = getTitle(manga);
   const cover   = getCover(manga);
-  const desc    = manga.attributes?.description?.en || Object.values(manga.attributes?.description || {})[0] || "";
+  
+  // Ubah di baris ini: Nyoba cari sinopsis ID dulu, kalau nggak ada baru EN
+  const desc    = manga.attributes?.description?.id || manga.attributes?.description?.en || Object.values(manga.attributes?.description || {})[0] || "";
+  
   const status  = manga.attributes?.status;
   const statusInfo = STATUS[status] || { label: status || "Unknown", color: "#6b7280" };
   const authors = getAuthors(manga);
@@ -186,7 +190,8 @@ export default async function MangaDetailPage({ params }) {
           <div style={{ maxHeight: "450px", overflowY: "auto" }}>
             {chapters.length === 0 ? (
               <div className="text-center py-8 text-sm" style={{ color: "#6b7280" }}>
-                Belum ada chapter tersedia (Bahasa Inggris)
+                {/* Teks diubah jadi Bahasa Indonesia */}
+                Belum ada chapter tersedia (Bahasa Indonesia)
               </div>
             ) : (
               [...chapters].reverse().map((ch) => {
