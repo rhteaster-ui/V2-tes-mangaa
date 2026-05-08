@@ -26,7 +26,7 @@ export async function searchManga({ query, limit = 24, offset = 0 } = {}) {
     limit,
     offset,
     "includes[]": "cover_art",
-    "availableTranslatedLanguage[]": "en",
+    "availableTranslatedLanguage[]": "id",
     "contentRating[]": ["safe", "suggestive"],
   });
   const res = await fetch(`${BASE}/manga?${params}`, { next: { revalidate: 60 } });
