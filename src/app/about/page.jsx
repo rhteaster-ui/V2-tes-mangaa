@@ -284,7 +284,7 @@ export default function AboutPage() {
         <div className="rounded-2xl overflow-hidden" style={{ background: "rgba(255,255,255,0.025)", border: "1px solid rgba(245,158,11,0.1)" }}>
           <div className="p-4 flex items-center gap-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
             <img
-              src="https://e.top4top.io/p_37695nh3v0.png"
+              src="https://raw.githubusercontent.com/rhteaster-ui/Mypp/refs/heads/main/1.png"
               alt="R_hmt ofc"
               className="w-12 h-12 rounded-xl object-cover flex-shrink-0"
               style={{ border: "1px solid rgba(245,158,11,0.35)" }}

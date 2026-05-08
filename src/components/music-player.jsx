@@ -38,7 +38,7 @@ export default function MusicPlayer() {
     setSearching(true);
     setAudioError(null);
     try {
-      const res = await fetch(`/api/music?q=${encodeURIComponent(query)}`);
+      const res = await fetch(`https://api-faa.my.id/faa/ytplay?query=${encodeURIComponent(query)}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       const raw = data?.result;
@@ -95,9 +95,9 @@ export default function MusicPlayer() {
     };
   }, [currentTrack]);
 
-  // Load track when currentTrack changes — prefer proxied stream, fallback to direct mp3
+  // Load track when currentTrack changes — direct endpoint hit (no backend proxy)
   useEffect(() => {
-    const audioUrl = currentTrack?.streamUrl || currentTrack?.previewUrl || currentTrack?.mp3;
+    const audioUrl = currentTrack?.mp3;
     if (!audioUrl || !audioRef.current) return;
     const audio = audioRef.current;
     setAudioError(null);
@@ -114,7 +114,7 @@ export default function MusicPlayer() {
   function togglePlay() {
     const audio = audioRef.current;
     if (!audio) return;
-    const audioUrl = currentTrack?.streamUrl || currentTrack?.previewUrl || currentTrack?.mp3;
+    const audioUrl = currentTrack?.mp3;
     if (!audioUrl) return;
     if (!audio.src || audio.src === window.location.href) {
       audio.src = audioUrl;
