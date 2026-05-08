@@ -8,7 +8,7 @@ export async function GET(request, { params }) {
     const { searchParams } = new URL(request.url);
     const limit = searchParams.get("limit") || 100;
     const offset = searchParams.get("offset") || 0;
-    const lang = searchParams.get("lang") || "en";
+    const lang = searchParams.get("lang") || "id";
 
     const p = new URLSearchParams();
     p.append("limit", limit);
