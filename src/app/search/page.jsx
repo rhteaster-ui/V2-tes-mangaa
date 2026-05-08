@@ -27,9 +27,19 @@ function SearchContent() {
   const fetchResults = useCallback(async (q, s, off = 0) => {
     setLoading(true);
     try {
-      const params = new URLSearchParams({ limit: LIMIT, offset: off, sort: s });
+      const params = new URLSearchParams({
+        limit: String(LIMIT),
+        offset: String(off),
+      });
+      params.set("includes[]", "cover_art");
+      params.append("contentRating[]", "safe");
+      params.append("contentRating[]", "suggestive");
+      params.append("contentRating[]", "erotica");
+      params.append("availableTranslatedLanguage[]", "en");
+      params.append("availableTranslatedLanguage[]", "id");
+      params.set(`order[${s}]`, "desc");
       if (q) params.set("q", q);
-      const res = await fetch(`/api/manga?${params}`);
+      const res = await fetch(`https://api.mangadex.org/manga?${params}`, { cache: "no-store" });
       const data = await res.json();
       if (off === 0) setResults(data.data || []);
       else setResults((prev) => [...prev, ...(data.data || [])]);
