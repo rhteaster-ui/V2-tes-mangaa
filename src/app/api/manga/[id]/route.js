@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const BASE = "https://komikindo.tv";
+const BASE = "https://api.mangadex.org";
 
 export async function GET(_, { params }) {
   try {
