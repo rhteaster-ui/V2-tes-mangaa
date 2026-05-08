@@ -40,7 +40,7 @@ export async function getManga(id) {
   return res.json();
 }
 
-export async function getMangaChapters(id, { limit = 100, offset = 0, lang = "en" } = {}) {
+export async function getMangaChapters(id, { limit = 100, offset = 0, lang = "id" } = {}) {
   const params = new URLSearchParams({
     limit,
     offset,
