@@ -8,9 +8,10 @@ export async function fetchMangaList({ limit = 20, offset = 0, order = "latestUp
     "order[followedCount]": order === "followedCount" ? "desc" : undefined,
     "order[rating]": order === "rating" ? "desc" : undefined,
     "includes[]": "cover_art",
-    "availableTranslatedLanguage[]": "en",
+    "availableTranslatedLanguage[]": "id", // Nah, ini kuncinya. Ganti "en" jadi "id"
     "contentRating[]": ["safe", "suggestive"],
   });
+  // ... sisa kode di bawahnya tetap sama
   // clean undefined
   for (const [k, v] of [...params.entries()]) {
     if (v === "undefined") params.delete(k);
