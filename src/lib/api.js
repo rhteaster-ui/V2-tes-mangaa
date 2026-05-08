@@ -1,4 +1,4 @@
-const BASE = "https://komikindo.tv";
+const BASE = "https://api.mangadex.org";
 
 export async function fetchMangaList({ limit = 20, offset = 0, order = "latestUploadedChapter" } = {}) {
   const params = new URLSearchParams({
